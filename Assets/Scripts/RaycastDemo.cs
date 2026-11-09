@@ -81,7 +81,11 @@ public class RaycastDemo : MonoBehaviour
             float yScaleDiff = yScaleBefore - yScaleAfter;
             hitObject.transform.position -= new Vector3(0, yScaleDiff*2f, 0);
 
-            print(hitObject.name);
+            OverlapSphereDemo sphereScript = hitInfo.collider.GetComponent<OverlapSphereDemo>();
+            if (sphereScript != null)
+            {
+                sphereScript.onHit();
+            }
         } else
         {
             lineRenderer.startColor = Color.gray;

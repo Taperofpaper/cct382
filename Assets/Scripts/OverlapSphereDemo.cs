@@ -1,4 +1,7 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// DEMO: Physics.OverlapSphere
@@ -32,7 +35,14 @@ public class OverlapSphereDemo : MonoBehaviour
     // result Update() just calculated, instead of running the query twice.
     private Collider[] detected;
     private bool isDetecting;
+    private Renderer renderer;
+    private Material material;
+    void Start()
+    {
+        renderer = GetComponent<Renderer>();
 
+        material = renderer.material;
+    }
     private void Update()
     {
         // Ask Unity: what Colliders on targetLayer are touching an
@@ -62,4 +72,38 @@ public class OverlapSphereDemo : MonoBehaviour
             Gizmos.DrawWireCube(hit.bounds.center, hit.bounds.size);
         }
     }
+
+    public void onHit()
+    {
+        StartCoroutine(HitFlash());
+    }
+    IEnumerator HitFlash()
+    {
+        print("CR");
+        float duration = 0.2f;
+        float elapsed = 0f;
+
+        // flash in 
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float amount = elapsed / duration;
+            material.SetFloat("_FlashAmount", amount);
+            yield return null;
+        }
+
+        // Flash out
+        elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float amount = 1f - (elapsed / duration);
+            material.SetFloat("_FlashAmount", amount);
+            yield return null;
+        }
+
+        material.SetFloat("_FlashAmount", 0f);
+    }
+
 }
