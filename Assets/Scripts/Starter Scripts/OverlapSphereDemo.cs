@@ -79,7 +79,6 @@ public class OverlapSphereDemo : MonoBehaviour
     }
     IEnumerator HitFlash()
     {
-        print("CR");
         float duration = 0.2f;
         float elapsed = 0f;
 

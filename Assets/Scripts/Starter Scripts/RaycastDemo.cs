@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -16,9 +15,6 @@ using UnityEngine;
 /// </summary>
 public class RaycastDemo : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_Text healthLabel;
-    [SerializeField] private HandshakeManager gameData;
     [Header("Detection Settings")]
     [Tooltip("How far forward to check.")]
     public float maxDistance = 5f;
@@ -73,8 +69,6 @@ public class RaycastDemo : MonoBehaviour
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, hitObject.transform.position);
 
-            gameData.numHandshakes += 0.261f;
-            healthLabel.text = "Ice melted: " + gameData.numHandshakes;
             float yScaleBefore = hitObject.transform.localScale.y;
             hitObject.transform.localScale *= 0.999f;
             float yScaleAfter = hitObject.transform.localScale.y;

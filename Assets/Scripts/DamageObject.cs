@@ -1,18 +1,19 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.Rendering;
 
 public class DamageObject : MonoBehaviour
 {
-    [SerializeField]
-    private HandshakeManager handshakeManager;
-    [SerializeField]
-    private TMP_Text healthLabel;
+    [Header("Data")]
+    [Tooltip("The current value to display, as a fraction of Max Health.")]
+    public FloatVariableSO currentHealth;
+
+    public GameEventSO onHealthChanged;
+
     void OnTriggerEnter(Collider other)
     {
-        handshakeManager.numHandshakes -= 0.5f;
-        handshakeManager.numHandshakes = Mathf.Clamp(handshakeManager.numHandshakes, 0, 100);
-        healthLabel.text = "Handshakes: " + handshakeManager.numHandshakes;
-        print("Event fired! Handshakes = " + handshakeManager.numHandshakes);
+        if (currentHealth.value > 0)
+        {
+            currentHealth.value -= 1;
+        }
+        onHealthChanged.Raise();
     }
 }

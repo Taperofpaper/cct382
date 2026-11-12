@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private HandshakeManager handshakeManager;
+    [Header("Data")]
+    [Tooltip("The current value to display, as a fraction of Max Health.")]
+    public FloatVariableSO currentHealth;
+    public FloatVariableSO maxHealth;
+    //[SerializeField] private HandshakeManager handshakeManager;
     private void OnApplicationQuit()
     {
-        handshakeManager.ResetStats();
+        currentHealth.value = maxHealth.value;
     }
 }
