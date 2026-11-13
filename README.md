@@ -1,4 +1,4 @@
-External libraries / Assets used:
+**External libraries / Assets used:**
 
 Undertale Hurt Sound by Toby Fox 
 
