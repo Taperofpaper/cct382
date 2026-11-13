@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateMovementState();
         handleVerticalMovement();
+        HandleFire();
 
         Vector3 cameraForwardXZ = new Vector3(playerCamera.transform.forward.x, 0f, playerCamera.transform.forward.z).normalized;
         Vector3 cameraRightXZ = new Vector3(playerCamera.transform.right.x, 0f, playerCamera.transform.right.z).normalized;
@@ -120,6 +121,27 @@ public class PlayerController : MonoBehaviour
         } else if (!characterController.isGrounded && characterController.velocity.y < 0f)
         {
             playerState = MovementState.Falling;
+        }
+    }
+
+    public void HandleFire()
+    {
+        if (inputController.firePressed)
+        {
+            inputController.firePressed = false;
+            RaycastDemo raycastDemo = raycastEmitter.GetComponent<RaycastDemo>();
+            if (raycastDemo != null)
+            {
+                raycastDemo.isFiring = true;
+            }
+        }
+        else
+        {
+            RaycastDemo raycastDemo = raycastEmitter.GetComponent<RaycastDemo>();
+            if (raycastDemo != null)
+            {
+                raycastDemo.isFiring = false;
+            }
         }
     }
 }

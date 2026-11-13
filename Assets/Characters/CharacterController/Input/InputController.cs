@@ -141,6 +141,16 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""bed11cdd-f9e9-4699-8150-e632fa8709a4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -297,6 +307,17 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43527658-c863-40b7-adfb-1bc5223c93e0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -310,6 +331,7 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         m_MovementMap_Jump = m_MovementMap.FindAction("Jump", throwIfNotFound: true);
         m_MovementMap_Run = m_MovementMap.FindAction("Run", throwIfNotFound: true);
         m_MovementMap_Crouch = m_MovementMap.FindAction("Crouch", throwIfNotFound: true);
+        m_MovementMap_Fire = m_MovementMap.FindAction("Fire", throwIfNotFound: true);
     }
 
     ~@InputController()
@@ -395,6 +417,7 @@ public partial class @InputController: IInputActionCollection2, IDisposable
     private readonly InputAction m_MovementMap_Jump;
     private readonly InputAction m_MovementMap_Run;
     private readonly InputAction m_MovementMap_Crouch;
+    private readonly InputAction m_MovementMap_Fire;
     /// <summary>
     /// Provides access to input actions defined in input action map "MovementMap".
     /// </summary>
@@ -426,6 +449,10 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "MovementMap/Crouch".
         /// </summary>
         public InputAction @Crouch => m_Wrapper.m_MovementMap_Crouch;
+        /// <summary>
+        /// Provides access to the underlying input action "MovementMap/Fire".
+        /// </summary>
+        public InputAction @Fire => m_Wrapper.m_MovementMap_Fire;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -467,6 +494,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
         }
 
         /// <summary>
@@ -493,6 +523,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
         }
 
         /// <summary>
@@ -568,5 +601,12 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCrouch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFire(InputAction.CallbackContext context);
     }
 }

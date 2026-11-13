@@ -37,6 +37,7 @@ public class OverlapSphereDemo : MonoBehaviour
     private bool isDetecting;
     private Renderer renderer;
     private Material material;
+    
     void Start()
     {
         renderer = GetComponent<Renderer>();

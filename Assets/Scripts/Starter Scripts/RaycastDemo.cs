@@ -29,7 +29,12 @@ public class RaycastDemo : MonoBehaviour
     public GameObject lineObject;
     public Color noHitColor = Color.white;
     public Color hitColor = Color.red;
+    public bool isFiring = false;
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip changeSound;
 
+    public PlayerMovementInput playerMovementInput;
     // Stored each frame so OnDrawGizmosSelected can show the same
     // result Update() just calculated, instead of running the query twice.
     private RaycastHit hitInfo;
@@ -53,6 +58,12 @@ public class RaycastDemo : MonoBehaviour
         // object, what is the first Collider on targetLayer it hits,
         // within maxDistance? hitInfo is filled in only if this
         // returns true - that's what "out" means here.
+
+        if (!isFiring)
+            return;
+        audioSource.pitch = Random.Range(1.1f, 1.3f);
+        audioSource.PlayOneShot(changeSound);
+
         didHit = Physics.Raycast(transform.position, transform.forward, out hitInfo, maxDistance, targetLayer);
 
         if (feedbackRenderer != null)
@@ -70,7 +81,7 @@ public class RaycastDemo : MonoBehaviour
             lineRenderer.SetPosition(1, hitObject.transform.position);
 
             float yScaleBefore = hitObject.transform.localScale.y;
-            hitObject.transform.localScale *= 0.999f;
+            hitObject.transform.localScale *= 0.97f;
             float yScaleAfter = hitObject.transform.localScale.y;
             float yScaleDiff = yScaleBefore - yScaleAfter;
             hitObject.transform.position -= new Vector3(0, yScaleDiff*2f, 0);

@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour
     public FloatVariableSO currentHealth;
     public FloatVariableSO maxHealth;
     //[SerializeField] private HandshakeManager handshakeManager;
+    void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private void OnApplicationQuit()
     {
         currentHealth.value = maxHealth.value;

@@ -9,6 +9,7 @@ public class PlayerMovementInput : MonoBehaviour, InputController.IMovementMapAc
     public bool jumpPressed;
     public bool runPressed;
     public bool crouchPressed;
+    public bool firePressed;
 
     public void OnMovement(InputAction.CallbackContext context)
     {
@@ -45,6 +46,14 @@ public class PlayerMovementInput : MonoBehaviour, InputController.IMovementMapAc
             return;
 
         runPressed = true;
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        firePressed = true;
     }
 
     private void OnEnable()
